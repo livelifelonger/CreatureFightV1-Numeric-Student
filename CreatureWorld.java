@@ -13,8 +13,10 @@ public class CreatureWorld extends World
 {
 
     /**
-     * Constructor for objects of class MyWorld.
+     * Default constructor for objects of class MyWorld.
      * 
+     * @param There are no parameters
+     * @return an object of class MyWorld
      */
     public CreatureWorld()
     {    
@@ -23,7 +25,14 @@ public class CreatureWorld extends World
 
         Greenfoot.start();
     }
-
+    
+    /**
+     * act will complete actions that the CreatureWorld object should
+     * accomplish while the scenario is running
+     * 
+     * @param There are no parameters
+     * @return Nothing is returned
+     */
     public void act()
     {
         
