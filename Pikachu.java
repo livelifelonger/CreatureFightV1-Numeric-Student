@@ -1,24 +1,46 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class Charmander here.
- * 
+ * Programed by Devyn Desrosiers
+ * lol 
  * @author (your name) 
  * @version (a version number or a date)
  */
 public class Pikachu extends Creature
 {
+    
+    
     public Pikachu( World w)
     {
-        super(700, 2);
+        super(700, 1, "Electric");
         getImage().scale(150, 100);
-        w.addObject( getHealthBar(), 100, 25 );
+        w.addObject( getHealthBar(), 100, 50 );
 
     }
     
+    public void attack( int idx )
+    {
+        CreatureWorld world = (CreatureWorld)getWorld();
+        
+        Creature enemy = world.getPlayerOne();
+        
+        String enemyType = enemy.getType();
+        if( idx == 0 )
+        {
+            enemy.getHealthBar().add( -30 );
+            
+        }
+        else
+        {
+            enemy.getHealthBar().add( -60 );
+        }
+        
+        world.setTurnNumber(2);
+
+    }
     
     /**
-     * Act - do whatever the Charmander wants to do. This method is called whenever
+     * Act - do whatever the Pikachu wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
     public void act() 
@@ -27,11 +49,10 @@ public class Pikachu extends Creature
         CreatureWorld playerWorld = (CreatureWorld)getWorld();
         
         if (getHealthBar().getCurrent() <= 0)
-        {
-           getWorld().showText("You Win", getWorld().getWidth()/2, getWorld().getHeight()/2 + 26);
-           Greenfoot.delay(30);
+            {
+                getWorld().showText("You WIN!!!!!", getWorld().getWidth()/2, getWorld().getHeight()/2 + 26);
+                Greenfoot.delay(30);
 
-        }
+            }
     }    
 }
-

@@ -12,6 +12,7 @@ public class HealthBar extends Actor
     //Need to add constants here
     private final int WIDTH = 200;
     private final int HEIGHT = 30;
+    
     private GreenfootImage frame;
     private GreenfootImage healthBar;
 
@@ -19,7 +20,7 @@ public class HealthBar extends Actor
     private Color warning;
     private Color danger;
 
-    //Need to add code here
+    //Variables
     private int max;
     private int current;
     private int speed;
@@ -72,6 +73,7 @@ public class HealthBar extends Actor
         frame = new GreenfootImage( WIDTH, HEIGHT );
         
         healthBar = new GreenfootImage( WIDTH, HEIGHT );
+        
         frame.setColor( Color.GRAY );
         frame.fillRect(0, 0, WIDTH, HEIGHT);
 
@@ -79,7 +81,7 @@ public class HealthBar extends Actor
         warning = Color.YELLOW;
         danger = Color.RED;
 
-        //Need to add code
+        //simplification
         max = m;
         current = c;
         target = current;
@@ -102,14 +104,19 @@ public class HealthBar extends Actor
             if( current <= target )
             {
                 current = target;
+                
+                
             }
         }
         else
         {
             current += speed;
+            
             if( current >= target)
             {
                 current = target;
+                
+                
             }
         }
 
@@ -135,26 +142,28 @@ public class HealthBar extends Actor
         //Need to add if statements
         
         if( current > max / 2 )
-        {
-            healthBar.setColor(good );
-            
-        }
+            {
+                healthBar.setColor(good );
+                
+            }
         else if (current > max / 4 )
-        {
-            
-            healthBar.setColor(warning );
-        }
+            {
+                
+                healthBar.setColor(warning );
+            }
         else
-        {
-            healthBar.setColor(danger );
-            
-        }
+            {
+                healthBar.setColor(danger );
+                
+            }
         healthBar.clear();
+        
         healthBar.fillRect( 0, 0, healthWidth, HEIGHT );
 
         text.clear();
         text.setColor( Color.BLACK );
         text.setFont( new Font( "Times New Roman", Font.PLAIN, 20 ) );
+        
         text.drawString(current + " / " + max, 0, HEIGHT-text.getFont().getSize()/2);
 
         frame.clear();
@@ -176,15 +185,20 @@ public class HealthBar extends Actor
     {
         //Need to add code
         target += change;
+        
         if( target > max)
-        {
-            target = max;
+            {
+                target = max;
             
-        }
+            }
+        
+        
         if( target < 0 )
-        {
-            target = 0;
-        }
+            {
+                target = 0;
+            }
+        
+        
     }
 
     /**
@@ -251,8 +265,9 @@ public class HealthBar extends Actor
      */
     public int getCurrent()
     {
-        //Change this
+       
         return current;
+        
     }
 
 }
