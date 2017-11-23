@@ -12,7 +12,7 @@ public class Pikachu extends Creature
     
     public Pikachu( World w)
     {
-        super(700, 1, "Electric");
+        super(700, false, "Electric");
         getImage().scale(150, 100);
         w.addObject( getHealthBar(), 100, 50 );
 
@@ -35,7 +35,7 @@ public class Pikachu extends Creature
             enemy.getHealthBar().add( -60 );
         }
         
-        world.setTurnNumber(2);
+        world.changeTurn(true);
 
     }
     

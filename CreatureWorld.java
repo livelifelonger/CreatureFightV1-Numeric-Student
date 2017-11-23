@@ -15,7 +15,7 @@ public class CreatureWorld extends World
     private Creature playerOneCreature;
     private Creature playerTwoCreature;
     
-    private int turnNumber;
+    private boolean playerOneTurn;
     private String playerOneName;
     private String playerTwoName;
     
@@ -24,6 +24,9 @@ public class CreatureWorld extends World
     private Menu twoFightMenu;
     private Menu twoSwitchMenu;
     
+    private boolean start;
+    private boolean playerOneMenusAdded;
+    private boolean playerTwoMenusAdded;
     
     /**
      * Default constructor for objects of class MyWorld.
@@ -37,6 +40,8 @@ public class CreatureWorld extends World
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
         super(400, 400, 1); 
         
+        start = true;
+        playerOneTurn = false;
         
         playerOneCreature = new Charmander(this);
         playerTwoCreature = new Pikachu(this);
@@ -44,7 +49,7 @@ public class CreatureWorld extends World
         
         prepareCreatures();
         
-        turnNumber = 0;
+        playerOneTurn = false;
         Greenfoot.start();
     }
     
@@ -52,11 +57,7 @@ public class CreatureWorld extends World
     {
         addObject(playerOneCreature, playerOneCreature.getImage().getWidth()/2, getHeight() - playerOneCreature.getImage().getHeight()/2);
         
-        
-        
         addObject(playerTwoCreature, getWidth() - playerTwoCreature.getImage().getWidth()/2, playerTwoCreature.getImage().getHeight()/2);
-        
-        
         
     }
     
@@ -73,23 +74,19 @@ public class CreatureWorld extends World
         
     }
     
-    public int getTurnNumber()
+    public boolean playerOneTurn()
     {
-    	  return turnNumber;
+        return playerOneTurn;
 
     }
         
         
         
-    public void setTurnNumber( int turn )
+    public void changeTurn( boolean isPlayerOne )
     {
-        turnNumber = turn;
+        playerOneTurn = isPlayerOne;
     }
         
-    
-        
-        
-    
     
     /**
      * act will complete actions that the CreatureWorld object should
@@ -102,50 +99,63 @@ public class CreatureWorld extends World
     {
         List allObjects=getObjects(null);
         
-        if ( turnNumber == 0)
-            {
-                playerOneName = JOptionPane.showInputDialog( "Player One, please enter your name:", null );
-                playerTwoName = JOptionPane.showInputDialog( "Player Two, please enter your name:", null );
-                oneFightMenu = new Menu( " Fight ", " Scratch \n Flamethrower ", 24, Color.BLACK, Color.WHITE, Color.BLACK, Color.WHITE, new FightCommands() );
-                
-                oneSwitchMenu = new Menu( " Switch ", " Golem \n Ivysaur ", 24, Color.BLACK, Color.WHITE, Color.BLACK, Color.WHITE, new SwitchCommands() );
-                
-                addObject( oneFightMenu, 173, getHeight() - 100 );
-                addObject( oneSwitchMenu, 241, getHeight() - 100 );
-                
-                twoFightMenu =  new Menu( " Fight ", " Tackle \n Thunderbolt ", 24, Color.BLACK, Color.WHITE, Color.BLACK, Color.WHITE, new FightCommands() );
-                twoSwitchMenu = new Menu( " Switch ", " Lapras \n Pidgeot ", 24, Color.BLACK, Color.WHITE, Color.BLACK, Color.WHITE, new SwitchCommands() );
+        if ( start == true )
+        {
+             playerOneName = JOptionPane.showInputDialog( "Player One, please enter your name:", null );
+             playerTwoName = JOptionPane.showInputDialog( "Player Two, please enter your name:", null );
 
-                addObject( twoFightMenu, 131,  75 );
-                addObject( twoSwitchMenu, 199, 75 );
                 
-                turnNumber = 1;
-            }
-            else if( turnNumber >= 1 ) 
-            {
-                showText( playerOneName + ", Your Turn.", getWidth(), getHeight() + 26);
-            }
-            else
-            {
-                showText( playerTwoName + ", Your Turn.", getWidth(), getHeight() + 26);
-            }
-           
+            
+             start = false;
+             playerOneTurn = true;
+        }
+        else if( playerOneTurn == true ) 
+        {
+             showText( playerOneName + ", Your Turn.", getWidth() / 2 , getHeight() / 2 + 26);
+        }
+        else
+        {
+             showText( playerTwoName + ", Your Turn.", getWidth() / 2 , getHeight() / 2 + 26);
+        }
+            
+        if( playerOneMenusAdded == false )
+        {
+             oneFightMenu = new Menu( " Fight ", " Scratch \n Flamethrower ", 24, Color.BLACK, Color.WHITE, Color.BLACK, Color.WHITE, new FightCommands() );
+                
+             oneSwitchMenu = new Menu( " Switch ", " Golem \n Ivysaur ", 24, Color.BLACK, Color.WHITE, Color.BLACK, Color.WHITE, new SwitchCommands() );
+                
+             addObject( oneFightMenu, 173, getHeight() - 100 );
+             addObject( oneSwitchMenu, 241, getHeight() - 100 );
+
+             playerOneMenusAdded = true;
+        }
         
+        if( playerTwoMenusAdded == false )
+        {
+             twoFightMenu =  new Menu( " Fight ", " Tackle \n Thunderbolt ", 24, Color.BLACK, Color.WHITE, Color.BLACK, Color.WHITE, new FightCommands() );
+             twoSwitchMenu = new Menu( " Switch ", " Lapras \n Pidgeot ", 24, Color.BLACK, Color.WHITE, Color.BLACK, Color.WHITE, new SwitchCommands() );
+
+             addObject( twoFightMenu, 131,  75 );
+             addObject( twoSwitchMenu, 199, 75 );
+
+             playerTwoMenusAdded = true;
+        }
+            
         if ( playerOneCreature.getHealthBar().getCurrent() <= 0)
-            {
-                removeObjects(allObjects);
+        {
+             removeObjects(allObjects);
+           
+             showText("player Two has Won", getWidth()/2, getHeight()/2 + 26);
             
-                showText("player Two has Won", getWidth()/2, getHeight()/2 + 26);
-            
-                Greenfoot.stop();
-            }
+             Greenfoot.stop();
+        }
         
         if ( playerTwoCreature.getHealthBar().getCurrent() <= 0)
-            {
-                showText("player One has Won", getWidth()/2, getHeight()/2 + 26);
+        {
+             showText("player One has Won", getWidth()/2, getHeight()/2 + 26);
                 
-                Greenfoot.stop();
-            }
+             Greenfoot.stop();
+        }
         
     }
 }
