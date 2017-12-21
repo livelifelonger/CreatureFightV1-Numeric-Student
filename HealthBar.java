@@ -37,7 +37,6 @@ public class HealthBar extends Actor
     {
         //Need to add code
         
-        
         frame = new GreenfootImage( WIDTH, HEIGHT );
         
         healthBar = new GreenfootImage( WIDTH, HEIGHT );
@@ -68,7 +67,6 @@ public class HealthBar extends Actor
      */
     public HealthBar(int c, int m, int s)
     {
-
         //Need to add code
         frame = new GreenfootImage( WIDTH, HEIGHT );
         
@@ -100,23 +98,17 @@ public class HealthBar extends Actor
         if( current > target )
         {
             current -= speed;
-            
             if( current <= target )
             {
                 current = target;
-                
-                
             }
         }
         else
         {
             current += speed;
-            
             if( current >= target)
             {
                 current = target;
-                
-                
             }
         }
 
@@ -142,20 +134,20 @@ public class HealthBar extends Actor
         //Need to add if statements
         
         if( current > max / 2 )
-            {
-                healthBar.setColor(good );
+        {
+             healthBar.setColor(good );
                 
-            }
+        }
         else if (current > max / 4 )
-            {
+        {
                 
-                healthBar.setColor(warning );
-            }
+             healthBar.setColor(warning );
+        }
         else
-            {
-                healthBar.setColor(danger );
+        {
+             healthBar.setColor(danger );
                 
-            }
+        }
         healthBar.clear();
         
         healthBar.fillRect( 0, 0, healthWidth, HEIGHT );
@@ -265,9 +257,7 @@ public class HealthBar extends Actor
      */
     public int getCurrent()
     {
-       
         return current;
-        
     }
 
 }

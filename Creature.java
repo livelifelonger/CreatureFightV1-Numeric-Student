@@ -11,8 +11,8 @@ public class Creature extends Actor
     
     private boolean playerOneCreature;
     private HealthBar creatureBar;
-    private int HealthNumber;
-    private String Type;
+    private int healthNumber;
+    private String type;
     
     /**
      * Default constructor for objects of the Creature class
@@ -22,11 +22,11 @@ public class Creature extends Actor
      */
     public Creature()
     {
-        HealthNumber = 500;
+        healthNumber = 500;
         
         playerOneCreature = true;
         
-        creatureBar = new HealthBar( HealthNumber, HealthNumber, 10);
+        creatureBar = new HealthBar( healthNumber, healthNumber, 10);
     }
 
     /**
@@ -38,18 +38,18 @@ public class Creature extends Actor
      */
     public Creature( int health, boolean isPlayerOne, String creatureType )
     {
-        HealthNumber = health;
+        healthNumber = health;
         
         playerOneCreature = isPlayerOne;
         
-        Type = creatureType;
+        type = creatureType;
         
-        creatureBar = new HealthBar( HealthNumber, HealthNumber, 10);
+        creatureBar = new HealthBar( healthNumber, healthNumber, 10);
     }
     
     public String getType()
     {
-        return Type;
+        return type;
     }
 
     
@@ -63,7 +63,7 @@ public class Creature extends Actor
         return  playerOneCreature;
     }
 
-   /**
+    /**
      * attack is the code that is run when the Creature attacks its enemy
      * 
      * @param There are no parameters
@@ -73,7 +73,17 @@ public class Creature extends Actor
     {
         //empty method that will get overriden in subclasses
     }
-
+    
+    public void switchCreature(int idx)
+    {
+        //empty method that will get overriden in subclasses
+    }
+    
+    public void switchedIn()
+    {
+        //empty method that will get overriden in subclasses
+    }
+    
     /**
      * act will complete actions that the Creature object should
      * accomplish while the scenario is running

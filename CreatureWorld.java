@@ -8,12 +8,15 @@ import java.util.List;
  * CS20S
  * Mr.Hardman 
  * Lab#1, Program#1
- * Date Last Modified 9/27/2017
+ * Date Last Modified 12/14/2017
  */
 public class CreatureWorld extends World
 {
-    private Creature playerOneCreature;
-    private Creature playerTwoCreature;
+    private String playerOneCreature;
+    private String playerTwoCreature;
+    
+    private Creature[] playerOneCreatures;
+    private Creature[] playerTwoCreatures;
     
     private boolean playerOneTurn;
     private String playerOneName;
@@ -41,10 +44,15 @@ public class CreatureWorld extends World
         super(400, 400, 1); 
         
         start = true;
+        
+        playerOneCreature = "Charmander";
+        playerTwoCreature = "Pikachu";
+        //What, I need to fix this... 2c ii
+        
         playerOneTurn = false;
         
-        playerOneCreature = new Charmander(this);
-        playerTwoCreature = new Pikachu(this);
+        playerOneCreatures = new Creature[]{ new Charmander(this), new Golem(this), new Ivysaur(this)};
+        playerTwoCreatures = new Creature[]{ new Pikachu(this), new Lapras(this), new Pigeot(this)};
         
         
         prepareCreatures();
@@ -55,39 +63,110 @@ public class CreatureWorld extends World
     
     public void prepareCreatures()
     {
-        addObject(playerOneCreature, playerOneCreature.getImage().getWidth()/2, getHeight() - playerOneCreature.getImage().getHeight()/2);
-        
-        addObject(playerTwoCreature, getWidth() - playerTwoCreature.getImage().getWidth()/2, playerTwoCreature.getImage().getHeight()/2);
-        
+        for(int i = 0; i < playerOneCreatures.length; i++ )
+        {
+            if( i == 0)
+            {
+                addObject(playerOneCreatures[i], playerOneCreatures[i].getImage().getWidth()/2, getHeight() - playerOneCreatures[i].getImage().getHeight()/2);
+                
+            }
+            else
+            {
+                playerOneCreatures[i].getImage().setTransparency(0);
+                addObject(playerOneCreatures[i], 0, getHeight() - playerOneCreatures[i].getImage().getHeight()/2);
+            }
+        }
+        for(int j = 0; j < playerTwoCreatures.length; j++ )
+        {
+            if( j == 0)
+            {
+                addObject(playerTwoCreatures[j], playerTwoCreatures[j].getImage().getWidth()/2, getHeight() - playerTwoCreatures[j].getImage().getHeight()/2);
+                
+            }
+            else
+            {
+                playerOneCreatures[j].getImage().setTransparency(0);
+                addObject(playerTwoCreatures[j], getWidth(), getHeight() - playerTwoCreatures[j].getImage().getHeight()/2);
+            }
+        }
     }
     
     public Creature getPlayerOne()
     {
-        
-        return playerOneCreature;
+        Creature currentPlayerOne;
+        if(playerOneCreature.equalsIgnoreCase("Charmander"))
+        {
+            currentPlayerOne = playerOneCreatures[0];
+        }
+        else if(playerOneCreature.equalsIgnoreCase("Golem"))
+        {
+            currentPlayerOne = playerOneCreatures[1];
+        }
+        else if(playerOneCreature.equalsIgnoreCase("Ivysaur"))
+        {
+            currentPlayerOne = playerOneCreatures[2];
+        }
+        return currentPlayerOne;
     }
     
     public Creature getPlayerTwo()
     {
-        
-        return playerTwoCreature;
-        
+        Creature currentPlayerTwo;
+        if(playerOneCreature.equalsIgnoreCase("Pikachu"))
+        {
+            currentPlayerTwo = playerTwoCreatures[0];
+        }
+        else if(playerOneCreature.equalsIgnoreCase("Lapras"))
+        {
+            currentPlayerTwo = playerTwoCreatures[1];
+        }
+        else if(playerOneCreature.equalsIgnoreCase("Pidgeot"))
+        {
+            currentPlayerTwo = playerTwoCreatures[2];
+        }
+        return currentPlayerTwo;
     }
     
     public boolean playerOneTurn()
     {
         return playerOneTurn;
-
     }
+    
+    public void changePlayerOne( String creature )
+    {
+        playerOneCreature = creature;
         
+        removeObject(oneFightMenu);
+        removeObject(oneSwitchMenu);
         
+        playerOneMenusAdded = false;
+    }
+    
+    public void changePlayerTwo( String creature )
+    {
+        playerTwoCreature = creature;
         
+        removeObject(twoFightMenu);
+        removeObject(twoSwitchMenu);
+        
+        playerTwoMenusAdded = false;
+    }
+    
     public void changeTurn( boolean isPlayerOne )
     {
         playerOneTurn = isPlayerOne;
     }
-        
     
+    public Creature getNewOneCreature( int index )
+    {
+        return playerOneCreatures[index];
+    }
+    
+    public Creature getNewTwoCreature( int index )
+    {
+        return playerTwoCreatures[index];
+    }
+
     /**
      * act will complete actions that the CreatureWorld object should
      * accomplish while the scenario is running
@@ -98,63 +177,109 @@ public class CreatureWorld extends World
     public void act()
     {
         List allObjects=getObjects(null);
+        boolean playerOneLose;
+        boolean playerTwoLose;
         
         if ( start == true )
         {
-             playerOneName = JOptionPane.showInputDialog( "Player One, please enter your name:", null );
-             playerTwoName = JOptionPane.showInputDialog( "Player Two, please enter your name:", null );
+            playerOneName = JOptionPane.showInputDialog( "Player One, please enter your name:", null );
+            playerTwoName = JOptionPane.showInputDialog( "Player Two, please enter your name:", null );
 
-                
-            
-             start = false;
-             playerOneTurn = true;
+            start = false;
+            playerOneTurn = true;
         }
         else if( playerOneTurn == true ) 
         {
-             showText( playerOneName + ", Your Turn.", getWidth() / 2 , getHeight() / 2 + 26);
+            showText( playerOneName + ", Your Turn.", getWidth() / 2 , getHeight() / 2 + 26);
         }
         else
         {
-             showText( playerTwoName + ", Your Turn.", getWidth() / 2 , getHeight() / 2 + 26);
+            showText( playerTwoName + ", Your Turn.", getWidth() / 2 , getHeight() / 2 + 26);
         }
             
         if( playerOneMenusAdded == false )
         {
-             oneFightMenu = new Menu( " Fight ", " Scratch \n Flamethrower ", 24, Color.BLACK, Color.WHITE, Color.BLACK, Color.WHITE, new FightCommands() );
+            if( playerOneCreature.equalsIgnoreCase("Charmander"))
+            {
+                oneFightMenu = new Menu( " Fight ", " Scratch \n Flamethrower ", 24, Color.BLACK, Color.WHITE, Color.BLACK, Color.WHITE, new FightCommands());
                 
-             oneSwitchMenu = new Menu( " Switch ", " Golem \n Ivysaur ", 24, Color.BLACK, Color.WHITE, Color.BLACK, Color.WHITE, new SwitchCommands() );
+                oneSwitchMenu = new Menu(" Switch ", " Golem \n Ivysaur ", 24, Color.BLACK, Color.WHITE, Color.BLACK, Color.WHITE, new SwitchCommands());
+            }
+            else if(playerOneCreature.equalsIgnoreCase("Golem"))
+            {
+                oneFightMenu = new Menu( " Fight ", " tackle \n Earthquake ", 24, Color.BLACK, Color.WHITE, Color.BLACK, Color.WHITE, new FightCommands());
                 
-             addObject( oneFightMenu, 173, getHeight() - 100 );
-             addObject( oneSwitchMenu, 241, getHeight() - 100 );
+                oneSwitchMenu = new Menu(" Switch ", " Charmander \n Ivysaur ", 24, Color.BLACK, Color.WHITE, Color.BLACK, Color.WHITE, new SwitchCommands());
+            }
+            else if( playerOneCreature.equalsIgnoreCase("Ivysaur"))
+            {
+                oneFightMenu = new Menu( " Fight ", " Quick Attack \n Razor Leaf ", 24, Color.BLACK, Color.WHITE, Color.BLACK, Color.WHITE, new FightCommands());
+               
+                oneSwitchMenu = new Menu(" Switch ", " Charmander \n Golem ", 24, Color.BLACK, Color.WHITE, Color.BLACK, Color.WHITE, new SwitchCommands());
+            }
+            addObject( oneFightMenu, 177, getHeight() - 100 );
+            addObject( oneSwitchMenu, 241, getHeight() - 100 );
 
-             playerOneMenusAdded = true;
+            playerOneMenusAdded = true;
         }
         
         if( playerTwoMenusAdded == false )
         {
-             twoFightMenu =  new Menu( " Fight ", " Tackle \n Thunderbolt ", 24, Color.BLACK, Color.WHITE, Color.BLACK, Color.WHITE, new FightCommands() );
-             twoSwitchMenu = new Menu( " Switch ", " Lapras \n Pidgeot ", 24, Color.BLACK, Color.WHITE, Color.BLACK, Color.WHITE, new SwitchCommands() );
+            if( playerTwoCreature.equalsIgnoreCase("Pikachu"))
+            {
+                twoFightMenu = new Menu( " Fight ", " Tackle \n Thunderbolt ", 24, Color.BLACK, Color.WHITE, Color.BLACK, Color.WHITE, new FightCommands());
 
-             addObject( twoFightMenu, 131,  75 );
-             addObject( twoSwitchMenu, 199, 75 );
+                twoSwitchMenu = new Menu(" Switch ", " Lapras \n Pidgeot ", 24, Color.BLACK, Color.WHITE, Color.BLACK, Color.WHITE, new SwitchCommands());
+            }
+            else if( playerTwoCreature.equalsIgnoreCase("Lapras"))
+            {
+                twoFightMenu = new Menu( " Fight ", " Tackle \n Hydro Pump ", 24, Color.BLACK, Color.WHITE, Color.BLACK, Color.WHITE, new FightCommands());
 
-             playerTwoMenusAdded = true;
-        }
-            
-        if ( playerOneCreature.getHealthBar().getCurrent() <= 0)
-        {
-             removeObjects(allObjects);
-           
-             showText("player Two has Won", getWidth()/2, getHeight()/2 + 26);
-            
-             Greenfoot.stop();
+                twoSwitchMenu = new Menu(" Switch ", " Pikachu \n Pidgeot ", 24, Color.BLACK, Color.WHITE, Color.BLACK, Color.WHITE, new SwitchCommands());
+            }
+            else if( playerTwoCreature.equalsIgnoreCase("Pidgeot"))
+            {
+                twoFightMenu = new Menu( " Fight ", " Tackle \n Wing Attack ", 24, Color.BLACK, Color.WHITE, Color.BLACK, Color.WHITE, new FightCommands());
+
+                twoSwitchMenu = new Menu(" Switch ", " Pikachu \n Lapras ", 24, Color.BLACK, Color.WHITE, Color.BLACK, Color.WHITE, new SwitchCommands());
+            }
+            addObject( twoFightMenu, 135,  75 );
+            addObject( twoSwitchMenu, 199, 75 );
+
+            playerTwoMenusAdded = true;
         }
         
-        if ( playerTwoCreature.getHealthBar().getCurrent() <= 0)
+        for( int i = 0; playerOneLose == true && i < playerOneCreatures.length; i++ )
         {
-             showText("player One has Won", getWidth()/2, getHeight()/2 + 26);
+            if(playerOneCreatures[i].getHealthBar().getCurrent() > 0 )
+            {
+                playerOneLose = false;
+            }
+        }
+
+        for( int j = 0; playerTwoLose == true && j < playerTwoCreatures.length; j++ )
+        {
+            if(playerTwoCreatures[j].getHealthBar().getCurrent() > 0 )
+            {
+                playerTwoLose = false;
+            }
+        }
+        
+        if ( playerOneLose == true)
+        {
+            removeObjects(allObjects);
+           
+            showText("player Two has Won", getWidth()/2, getHeight()/2 + 26);
+            
+            Greenfoot.stop();
+        }
+        
+        if ( playerTwoLose == true)
+        {
+            //Should have removeObjects line
+            showText("player One has Won", getWidth()/2, getHeight()/2 + 26);
                 
-             Greenfoot.stop();
+            Greenfoot.stop();
         }
         
     }
