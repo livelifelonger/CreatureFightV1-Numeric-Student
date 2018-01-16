@@ -33,13 +33,25 @@ public class TextBox extends Actor
         display();
     }
     
+     /**
+     * getText returns the text variable
+     * 
+     * @param there are no parameters
+     * 
+     * @return text is returned
+     */
     public String getText()
     {
-        
         return text;
-        
     }
     
+     /**
+     * setText takes a message (string) and makes it into an image
+     * 
+     * @param message copies the defined text variable
+     * 
+     * @return message 
+     */
     public void setText( String message )
     {
         text = message;
@@ -49,6 +61,13 @@ public class TextBox extends Actor
         display();
     }
     
+     /**
+     * display takes message and makes a greenfootImage, and then displays it
+     * 
+     * @param there are no parameters
+     * 
+     * @return Nothing is returned
+     */
     private void display()
     {
         //

@@ -47,20 +47,37 @@ public class Creature extends Actor
         creatureBar = new HealthBar( healthNumber, healthNumber, 10);
     }
     
+    /**
+     * getType returns a creatures type
+     * 
+     * @param thre are no parameters
+     * @return type
+     */
     public String getType()
     {
         return type;
     }
 
-    
+     /**
+     * getHealthbar returns the healthbar of a creature
+     * 
+     * @param thre are no parameters
+     * @return creatureBar
+     */
     protected HealthBar getHealthBar()
     {
         return creatureBar;
     }
     
+     /**
+     * getWhetherPlayerOne checks whether the curent creature is playerOne's
+     * 
+     * @param thre are no parameters
+     * @return playerOneCreature
+     */
     public boolean getWhetherPlayerOne()
     {
-        return  playerOneCreature;
+        return playerOneCreature;
     }
 
     /**
@@ -74,11 +91,23 @@ public class Creature extends Actor
         //empty method that will get overriden in subclasses
     }
     
+     /**
+     * switchCreature is overriden in subclasses
+     * 
+     * @param There are no parameters
+     * @return Nothing is returned
+     */
     public void switchCreature(int idx)
     {
         //empty method that will get overriden in subclasses
     }
     
+     /**
+     * switchedIn is overriden in subclasses
+     * 
+     * @param There are no parameters
+     * @return Nothing is returned
+     */
     public void switchedIn()
     {
         //empty method that will get overriden in subclasses

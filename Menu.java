@@ -1,5 +1,6 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 import java.awt.Color;
+
 /**
  * Write a description of class Menu here.
  * 
@@ -8,7 +9,6 @@ import java.awt.Color;
  */
 public class Menu extends Actor
 {
-    
     private TextBox titleBar;
     private TextBox menuItems;
     private MenuCommands commands;
@@ -18,14 +18,11 @@ public class Menu extends Actor
     private int titleHeight;
     private int menuHeight;
     
-    
     private Color mainFG;
     private Color mainBG;
     private Color secondFG;
     private Color secondBG;
     
-    
-   
     public Menu( String tb, String i, int fs, Color mfg, Color mbg, Color sfg, Color sbg, MenuCommands mc)
     {
         mainFG = mfg;
@@ -38,14 +35,11 @@ public class Menu extends Actor
         
         commands = mc;
         fontSize = fs;
-        
-       
     }
     
     public Menu()
     {
         this( "not initialized", "none", 24, Color.BLACK, Color.lightGray, Color.BLACK, Color.WHITE, null);
-        
     }
     
     protected void addedToWorld( World w )
@@ -65,11 +59,22 @@ public class Menu extends Actor
         handleMouse();
     }    
     
+     /**
+     * handleMouse checks if the mouse clicks on displayed menu Items
+     * 
+     * @param distance is the position of the menu items
+     * @param menuItems is an index of items displayed 
+     * 
+     * @return Nothing is returned
+     */
     private void handleMouse()
     {
         CreatureWorld world = (CreatureWorld)getWorld();
         int distance;
-         if( world.playerOneTurn() == true)
+        int menuIndex;
+        MouseInfo mi;
+        
+        if( world.playerOneTurn() == true)
         {
             if(titleBar.getText().equalsIgnoreCase("Fight"))
             {
@@ -78,45 +83,70 @@ public class Menu extends Actor
             else
             {
                 distance = 195;
-               
             }
         }
         else
         {
              if(titleBar.getText().equalsIgnoreCase("Fight"))
+             {
+                 distance = 362;
+             }
+             else
+             {
+                 distance = 195;
+             }
+        }
+        
+        if( getObjectsInRange(distance, Creature.class).get(0).getWhetherPlayerOne() == true && world.playerOneTurn() == true)
+        {
+            if( Greenfoot.mouseClicked(titleBar) )
+            {
+                if( visible == false )
                 {
-                    distance = 362;
+                    getWorld().addObject( menuItems, getX(), getY() + (titleHeight + menuHeight) /2); 
                 }
                 else
                 {
-                    distance = 195;
+                    getWorld().removeObject( menuItems );
                 }
-        }
-        
-        if( Greenfoot.mouseClicked(titleBar) )
-        {
-            
-            if( visible == false )
-            {
-                getWorld().addObject( menuItems, getX(), getY() + (titleHeight + menuHeight) /2); 
+                visible = !visible;
             }
-            else
+                
+            if( Greenfoot.mouseClicked(menuItems) )
             {
-                getWorld().removeObject( menuItems );
-            }
-            
-            visible = !visible;
-            
-        }
-        
-        if( Greenfoot.mouseClicked(menuItems) )
-        {
-            MouseInfo mi = Greenfoot.getMouseInfo();
-            int menuIndex = ( ( mi.getY() - menuItems.getY() + menuHeight / 2 ) - 1) / fontSize;
+                mi = Greenfoot.getMouseInfo();
+                menuIndex = ( ( mi.getY() - menuItems.getY() + menuHeight / 2 ) - 1) / fontSize;
 
-            visible = !visible;
-            getWorld().removeObject( menuItems );
-            commands.execute(menuIndex,  getObjectsInRange( distance, Creature.class).get(0));
+                visible = !visible;
+                getWorld().removeObject( menuItems );
+                commands.execute(menuIndex, world.getPlayerOne());
+            }
+                
+        }
+        else if( getObjectsInRange(distance, Creature.class).get(0).getWhetherPlayerOne() == false && world.playerOneTurn() == false )
+        {
+             if( Greenfoot.mouseClicked(titleBar) )
+            {
+                if( visible == false )
+                {
+                    getWorld().addObject( menuItems, getX(), getY() + (titleHeight + menuHeight) /2); 
+                }
+                else
+                {
+                    getWorld().removeObject( menuItems );
+                }
+                visible = !visible;
+            }
+                
+            if( Greenfoot.mouseClicked(menuItems) )
+            {
+                mi = Greenfoot.getMouseInfo();
+                menuIndex = ( ( mi.getY() - menuItems.getY() + menuHeight / 2 ) - 1) / fontSize;
+                
+                visible = !visible;
+                getWorld().removeObject( menuItems );
+                commands.execute(menuIndex, world.getPlayerTwo());
+            }
         }
     }
     

@@ -6,12 +6,11 @@
  */
 public class SwitchCommands implements MenuCommands 
 {
-    // instance variables - replace the example below with your own
-    private int x;
+
     public void execute( int idx, Creature c )
     {
-        
+        c.switchCreature(idx);
     }
 
-    }
+}
 

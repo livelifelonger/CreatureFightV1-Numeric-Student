@@ -18,7 +18,6 @@ public class CreatureWorld extends World
     private Creature[] playerOneCreatures;
     private Creature[] playerTwoCreatures;
     
-    private boolean playerOneTurn;
     private String playerOneName;
     private String playerTwoName;
     
@@ -28,6 +27,7 @@ public class CreatureWorld extends World
     private Menu twoSwitchMenu;
     
     private boolean start;
+    private boolean playerOneTurn;
     private boolean playerOneMenusAdded;
     private boolean playerTwoMenusAdded;
     
@@ -52,7 +52,7 @@ public class CreatureWorld extends World
         playerOneTurn = false;
         
         playerOneCreatures = new Creature[]{ new Charmander(this), new Golem(this), new Ivysaur(this)};
-        playerTwoCreatures = new Creature[]{ new Pikachu(this), new Lapras(this), new Pigeot(this)};
+        playerTwoCreatures = new Creature[]{ new Pikachu(this), new Lapras(this), new Pidgeot(this)};
         
         
         prepareCreatures();
@@ -61,6 +61,12 @@ public class CreatureWorld extends World
         Greenfoot.start();
     }
     
+    /**
+     * prepareCreatures makes all creatures and adds them to the world
+     * 
+     * @param There are no parameters
+     * @return an object of class MyWorld
+     */
     public void prepareCreatures()
     {
         for(int i = 0; i < playerOneCreatures.length; i++ )
@@ -68,7 +74,6 @@ public class CreatureWorld extends World
             if( i == 0)
             {
                 addObject(playerOneCreatures[i], playerOneCreatures[i].getImage().getWidth()/2, getHeight() - playerOneCreatures[i].getImage().getHeight()/2);
-                
             }
             else
             {
@@ -80,17 +85,23 @@ public class CreatureWorld extends World
         {
             if( j == 0)
             {
-                addObject(playerTwoCreatures[j], playerTwoCreatures[j].getImage().getWidth()/2, getHeight() - playerTwoCreatures[j].getImage().getHeight()/2);
+                addObject(playerTwoCreatures[j], getWidth() - playerTwoCreatures[j].getImage().getWidth()/2, playerTwoCreatures[j].getImage().getHeight()/2);
                 
             }
             else
             {
-                playerOneCreatures[j].getImage().setTransparency(0);
-                addObject(playerTwoCreatures[j], getWidth(), getHeight() - playerTwoCreatures[j].getImage().getHeight()/2);
+                playerTwoCreatures[j].getImage().setTransparency(0);
+                addObject(playerTwoCreatures[j], getWidth(), playerTwoCreatures[j].getImage().getHeight()/2);
             }
         }
     }
     
+    /**
+     * getPlayerOne gets current playerOneCreature and returns it
+     * 
+     * @param There are no parameters
+     * @return a playerOneCreature object
+     */
     public Creature getPlayerOne()
     {
         Creature currentPlayerOne;
@@ -102,36 +113,65 @@ public class CreatureWorld extends World
         {
             currentPlayerOne = playerOneCreatures[1];
         }
-        else if(playerOneCreature.equalsIgnoreCase("Ivysaur"))
+        else
         {
             currentPlayerOne = playerOneCreatures[2];
         }
         return currentPlayerOne;
     }
     
+    /**
+     * getPlayerOne gets current playerTwoCreature and returns it
+     * 
+     * @param There are no parameters
+     * @return a playerTwoCreature object
+     */
     public Creature getPlayerTwo()
     {
         Creature currentPlayerTwo;
-        if(playerOneCreature.equalsIgnoreCase("Pikachu"))
+        if(playerTwoCreature.equalsIgnoreCase("Pikachu"))
         {
             currentPlayerTwo = playerTwoCreatures[0];
         }
-        else if(playerOneCreature.equalsIgnoreCase("Lapras"))
+        else if(playerTwoCreature.equalsIgnoreCase("Lapras"))
         {
             currentPlayerTwo = playerTwoCreatures[1];
         }
-        else if(playerOneCreature.equalsIgnoreCase("Pidgeot"))
+        else
         {
             currentPlayerTwo = playerTwoCreatures[2];
         }
         return currentPlayerTwo;
     }
     
+    /**
+     * playerOneTurn returns whos turn it is
+     * 
+     * @param There are no parameters
+     * @return who's turn it is
+     */
     public boolean playerOneTurn()
     {
         return playerOneTurn;
     }
     
+    /**
+     * gdjytrytjrytjtytjretrdtd
+     * 
+     * what?
+     */
+    public String currentCreature()
+    {
+        return playerTwoCreature;
+    }
+    
+    /**
+     * changePlayerOne adds in new menus when the current creature 
+     * for playerOne has changed
+     * 
+     * @param There are no parameters
+     * @return nothing
+     */
     public void changePlayerOne( String creature )
     {
         playerOneCreature = creature;
@@ -142,6 +182,13 @@ public class CreatureWorld extends World
         playerOneMenusAdded = false;
     }
     
+     /**
+     * changePlayerTwo adds in new menus when the current creature 
+     * for playerTwo has changed
+     * 
+     * @param There are no parameters
+     * @return nothing
+     */
     public void changePlayerTwo( String creature )
     {
         playerTwoCreature = creature;
@@ -152,16 +199,34 @@ public class CreatureWorld extends World
         playerTwoMenusAdded = false;
     }
     
+     /**
+     * changeTurn checks whether or not it is player one's turn
+     * 
+     * @param There are no parameters
+     * @return nothing
+     */
     public void changeTurn( boolean isPlayerOne )
     {
         playerOneTurn = isPlayerOne;
     }
     
+     /**
+     * getNewOneCreature checks and returns the playerOneCreature index
+     * 
+     * @param There are no parameters
+     * @return playerOneCreatures index
+     */
     public Creature getNewOneCreature( int index )
     {
         return playerOneCreatures[index];
     }
     
+     /**
+     * getNewOneCreature checks and returns the playerTwoCreature index
+     * 
+     * @param There are no parameters
+     * @return playerTwoCreatures index
+     */
     public Creature getNewTwoCreature( int index )
     {
         return playerTwoCreatures[index];
@@ -177,8 +242,8 @@ public class CreatureWorld extends World
     public void act()
     {
         List allObjects=getObjects(null);
-        boolean playerOneLose;
-        boolean playerTwoLose;
+        boolean playerOneLose = true;
+        boolean playerTwoLose = true;
         
         if ( start == true )
         {
@@ -227,7 +292,7 @@ public class CreatureWorld extends World
         {
             if( playerTwoCreature.equalsIgnoreCase("Pikachu"))
             {
-                twoFightMenu = new Menu( " Fight ", " Tackle \n Thunderbolt ", 24, Color.BLACK, Color.WHITE, Color.BLACK, Color.WHITE, new FightCommands());
+                twoFightMenu = new Menu( " Fight ", " Tackle \n ThunderBolt ", 24, Color.BLACK, Color.WHITE, Color.BLACK, Color.WHITE, new FightCommands());
 
                 twoSwitchMenu = new Menu(" Switch ", " Lapras \n Pidgeot ", 24, Color.BLACK, Color.WHITE, Color.BLACK, Color.WHITE, new SwitchCommands());
             }

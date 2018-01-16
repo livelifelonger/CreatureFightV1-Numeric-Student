@@ -6,11 +6,9 @@
  */
 public class FightCommands implements MenuCommands
 {
-    
     public void execute( int idx, Creature c )
     {
         c.attack( idx );
 
     }
-
 }

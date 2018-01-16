@@ -1,7 +1,22 @@
 #BlueJ class context
 comment0.target=Lapras
-comment0.text=\r\n\ Write\ a\ description\ of\ class\ Lapras\ here.\r\n\ \r\n\ @author\ (your\ name)\ \r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
-comment1.params=
-comment1.target=void\ act()
-comment1.text=\r\n\ Act\ -\ do\ whatever\ the\ Lapras\ wants\ to\ do.\ This\ method\ is\ called\ whenever\r\n\ the\ 'Act'\ or\ 'Run'\ button\ gets\ pressed\ in\ the\ environment.\r\n
-numComments=2
+comment0.text=\r\n\ Programed\ by\ Devyn\ Desrosiers\r\n\ lol\ \r\n\ @author\ (your\ name)\ \r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment1.params=w
+comment1.target=Lapras(greenfoot.World)
+comment1.text=\r\n\ Lapras\ defines\ the\ creature\ "Lapras"\r\n\ \r\n\ @param\ info\ about"Lapras"\r\n\ @return\ Nothing\ is\ returned\r\n
+comment2.params=idx
+comment2.target=void\ attack(int)
+comment2.text=\r\n\ attack\ allows\ creatures\ to\ damage\ each\ other\r\n\ \r\n\ @param\ enemy\ is\ hte\ opposing\ creature\r\n\ @param\ enemyType\ checks\ the\ type\ of\ the\ enemy\r\n\ \r\n\ @return\ Nothing\ is\ returned\r\n
+comment3.params=
+comment3.target=void\ attackAnimation()
+comment3.text=\r\n\ attackAnimation\ animates\ the\ attack\ of\ the\ creature\r\n\ \r\n\ @param\ originalX\ returns\ the\ X\ value\ the\ creature\ started\ at\r\n\ @param\ originalY\ returns\ the\ Y\ value\ the\ creature\ started\ at\r\n\ \r\n\ @return\ Nothing\ is\ returned\r\n
+comment4.params=idx
+comment4.target=void\ switchCreature(int)
+comment4.text=\r\n\ attack\ allows\ creatures\ to\ which\ out\ with\ other\ creatures\r\n\ \r\n\ @param\ switchCreature\ is\ defined\ as\ which\ creature\ is\ being\ sent\ out\r\n\ \r\n\ @return\ Nothing\ is\ returned\r\n
+comment5.params=
+comment5.target=void\ switchedIn()
+comment5.text=\r\n\ switchedIn\ changes\ the\ opacity\ of\ the\ creature\ switched\ effectively\ changing\ the\ current\ creature\r\n\ \r\n\ @param\ there\ are\ no\ parameters\r\n\ \r\n\ @return\ Nothing\ is\ returned\r\n
+comment6.params=
+comment6.target=void\ act()
+comment6.text=\r\n\ Act\ -\ do\ whatever\ the\ Lapras\ wants\ to\ do.\ This\ method\ is\ called\ whenever\r\n\ the\ 'Act'\ or\ 'Run'\ button\ gets\ pressed\ in\ the\ environment.\r\n
+numComments=7
