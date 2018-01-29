@@ -12,5 +12,5 @@ comment4.target=void\ act()
 comment4.text=\r\n\ Act\ -\ do\ whatever\ the\ Menu\ wants\ to\ do.\ This\ method\ is\ called\ whenever\r\n\ the\ 'Act'\ or\ 'Run'\ button\ gets\ pressed\ in\ the\ environment.\r\n
 comment5.params=
 comment5.target=void\ handleMouse()
-comment5.text=\r\n\ handleMouse\ checks\ if\ the\ mouse\ clicks\ on\ displayed\ menu\ Items\r\n\ \r\n\ @param\ distance\ is\ the\ position\ of\ the\ menu\ items\r\n\ \r\n\ \r\n\ @return\ Nothing\ is\ returned\r\n
+comment5.text=\r\n\ handleMouse\ checks\ if\ the\ mouse\ clicks\ on\ displayed\ menu\ Items\r\n\ \r\n\ @param\ distance\ is\ the\ position\ of\ the\ menu\ items\r\n\ @param\ menuItems\ is\ an\ index\ of\ items\ displayed\ \r\n\ \r\n\ @return\ Nothing\ is\ returned\r\n
 numComments=6

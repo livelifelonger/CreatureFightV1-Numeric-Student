@@ -26,8 +26,7 @@ public class Ivysaur extends Creature
      /**
      * attack allows creatures to damage each other
      * 
-     * @param enemy is hte opposing creature
-     * @param enemyType checks the type of the enemy
+     * @param a number index
      * 
      * @return Nothing is returned
      */

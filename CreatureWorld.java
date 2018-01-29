@@ -169,7 +169,7 @@ public class CreatureWorld extends World
      * changePlayerOne adds in new menus when the current creature 
      * for playerOne has changed
      * 
-     * @param There are no parameters
+     * @param a playeOne creatures Name (string)
      * @return nothing
      */
     public void changePlayerOne( String creature )
@@ -186,7 +186,7 @@ public class CreatureWorld extends World
      * changePlayerTwo adds in new menus when the current creature 
      * for playerTwo has changed
      * 
-     * @param There are no parameters
+     * @param a playeTwo creatures Name (string)
      * @return nothing
      */
     public void changePlayerTwo( String creature )
@@ -202,7 +202,7 @@ public class CreatureWorld extends World
      /**
      * changeTurn checks whether or not it is player one's turn
      * 
-     * @param There are no parameters
+     * @param boolean is it player ones turn
      * @return nothing
      */
     public void changeTurn( boolean isPlayerOne )
@@ -211,9 +211,9 @@ public class CreatureWorld extends World
     }
     
      /**
-     * getNewOneCreature checks and returns the playerOneCreature index
+     * getNewOneCreature checks and returns creatures from the playerOneCreatures index
      * 
-     * @param There are no parameters
+     * @param a number index 
      * @return playerOneCreatures index
      */
     public Creature getNewOneCreature( int index )
@@ -222,7 +222,7 @@ public class CreatureWorld extends World
     }
     
      /**
-     * getNewOneCreature checks and returns the playerTwoCreature index
+     * getNewOneCreature checks and returns creatures from the playerTwoCreatures index
      * 
      * @param There are no parameters
      * @return playerTwoCreatures index

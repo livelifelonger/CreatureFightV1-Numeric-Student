@@ -34,6 +34,7 @@ public class Creature extends Actor
      * 
      * @param health is the amount of health the Creature object will have
      * @param whichPlayer discusses whether the creature belongs to player 1 or player 2
+     * @param creatureType defines the type of the creature
      * @return an object of the Creature class
      */
     public Creature( int health, boolean isPlayerOne, String creatureType )
@@ -83,7 +84,7 @@ public class Creature extends Actor
     /**
      * attack is the code that is run when the Creature attacks its enemy
      * 
-     * @param There are no parameters
+     * @param a number index
      * @return Nothing is returned
      */
     public void attack(int idx)
@@ -94,7 +95,7 @@ public class Creature extends Actor
      /**
      * switchCreature is overriden in subclasses
      * 
-     * @param There are no parameters
+     * @param a number index
      * @return Nothing is returned
      */
     public void switchCreature(int idx)

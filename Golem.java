@@ -26,7 +26,7 @@ public class Golem extends Creature
      /**
      * attack allows creatures to damage each other
      * 
-     * @param enemy is hte opposing creature
+     * @param a number index
      * @param enemyType checks the type of the enemy
      * 
      * @return Nothing is returned
